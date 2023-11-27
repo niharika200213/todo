@@ -2,6 +2,7 @@ import express, { Request, Response } from "express"
 import cors from "cors"
 import mongoose, { ConnectOptions } from "mongoose"
 import todoRoutes from "./routes/totoRoutes";
+import 'dotenv/config';
 
 const app = express();
 app.use(express.json());
@@ -23,9 +24,9 @@ app.use((err:any, req:Request, res:Response, next:any)=>{
     return res.status(err.status).json(err);
 });
 
-mongoose.connect('mongodb+srv://niharika:niharika@cluster1.4fqv3.mongodb.net/assignment?retryWrites=true&w=majority',{
+mongoose.connect(process.env.MONGOOSE_URI!,{
     useNewUrlParser: true, useUnifiedTopology: true
 } as ConnectOptions ).then(()=>{
-    app.listen(5000, function(){
+    app.listen(process.env.PORT, function(){
         console.log('db')
     });})

@@ -33,7 +33,9 @@ const updateTodo = async(req: Request, res: Response, next: any) => {
         const todoId:string = req.body.todoId;
         const title:string = req.body.title;
         const content:string = req.body.content;
+        console.log(todoId,title,content)
         const updatedTodo = await todos.findOneAndUpdate({_id:todoId}, {$set:{title:title, content:content}}, {new:true});
+        console.log(updatedTodo)
         return res.status(200).json(updatedTodo);
     }
     catch(err){
