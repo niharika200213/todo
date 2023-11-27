@@ -101,7 +101,7 @@ const TodoList: React.FC = () => {
         data?.map((todo: Todo) => {
           return (
             <div className='todo' key={todo._id}>
-              <form id="form1" style={{ display: "none" }}>
+              <form id={todo._id+todo.title} style={{ display: "none" }}>
                 <input type="text" defaultValue={todo.title} onChange={(e) => { todo.title = e.target.value }}></input>
                 <input type="text" defaultValue={todo.content} onChange={(e) => { todo.content = e.target.value }}></input>
                 <button style={{
@@ -111,7 +111,7 @@ const TodoList: React.FC = () => {
                   updateTodoContent.mutate({ todoId: todo._id, title: todo.title, content: todo.content });
                 }}>Update</button>
               </form>
-              <div id="todoDiv">
+              <div id={todo._id}>
                 <h2>{todo.title} </h2>
                 <p>{todo.content}</p>
 
@@ -119,8 +119,8 @@ const TodoList: React.FC = () => {
                   backgroundColor: "#FF928B", borderRadius: "10px", border: "1px #FF928B solid", color: "white",
                   padding: "4px 10px", fontWeight: "bolder", margin: "5px", cursor: "pointer"
                 }} onClick={() => {
-                  document.getElementById('form1')!.style.display = 'block';
-                  document.getElementById('todoDiv')!.style.display = 'none';
+                  document.getElementById(todo._id+todo.title)!.style.display = 'block';
+                  document.getElementById(todo._id)!.style.display = 'none';
                 }}>Update</button>
 
                 <button style={{
