@@ -1,7 +1,7 @@
 import express, { Request, Response } from "express"
 import todos from "../models/todo";
 
-exports.createTodo = async(req: Request, res: Response, next: any) => {
+const createTodo = async(req: Request, res: Response, next: any) => {
     try{
         const title:string = req.body.title;
         const content:string = req.body.content;
@@ -15,10 +15,10 @@ exports.createTodo = async(req: Request, res: Response, next: any) => {
     }
 }
 
-exports.deleteTodo = async(req: Request, res: Response, next: any) => {
+const deleteTodo = async(req: Request, res: Response, next: any) => {
     try{
         const todoId:string = req.body.todoId;
-        const deletedTodo = await todos.findOneAndDelete({id: todoId});
+        const deletedTodo = await todos.findOneAndDelete({_id: todoId});
         return res.status(200).json(deletedTodo);
     }
     catch(err){
@@ -28,14 +28,12 @@ exports.deleteTodo = async(req: Request, res: Response, next: any) => {
     }
 }
 
-exports.updateTodo = async(req: Request, res: Response, next: any) => {
+const updateTodo = async(req: Request, res: Response, next: any) => {
     try{
         const todoId:string = req.body.todoId;
         const title:string = req.body.title;
         const content:string = req.body.content;
-        const updatedTodo = await todos.findOneAndUpdate({id:todoId}, {title:title, content:content}, {
-            new: true
-          });
+        const updatedTodo = await todos.findOneAndUpdate({_id:todoId}, {$set:{title:title, content:content}}, {new:true});
         return res.status(200).json(updatedTodo);
     }
     catch(err){
@@ -45,10 +43,10 @@ exports.updateTodo = async(req: Request, res: Response, next: any) => {
     }
 }
 
-exports.listAllTodos = async(req: Request, res: Response, next: any) => {
+const listAllTodos = async(req: Request, res: Response, next: any) => {
     try{
         const pageLimit = 10;
-        const page = req.body.page;
+        const page:any = req.params.page;
         const listOfTodos = await todos.find().limit(pageLimit).skip(pageLimit * page).sort({title:"asc"});
         return res.status(200).json(listOfTodos);
     }
@@ -57,4 +55,9 @@ exports.listAllTodos = async(req: Request, res: Response, next: any) => {
             err.status = 502;
         next(err);
     }
+}
+
+
+export{
+    createTodo, deleteTodo, updateTodo, listAllTodos
 }
