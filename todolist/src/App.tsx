@@ -60,11 +60,11 @@ const CreateTodo: React.FC = () => {
     <div>
       <form style={{ width: "50%", margin: "auto" }} onSubmit={handleSubmit}>
         <br></br>
-        <div>Title:</div>
+        <div><b>Title:</b></div>
         <input style={{ backgroundColor: "#F4EEFF" }} type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
         <br></br>
         <br></br>
-        <div>Content:</div>
+        <div><b>Content:</b></div>
         <input style={{ backgroundColor: "#F4EEFF" }} type="text" value={content} onChange={(e) => setContent(e.target.value)} />
         <br></br>
         <button style={{
