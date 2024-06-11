@@ -1,0 +1,1 @@
+Todo Application(CRUD) with Typescript, React, React-Query, Node.js, MongoDb and Express.js
